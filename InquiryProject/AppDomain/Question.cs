@@ -13,7 +13,7 @@ namespace InquiryProject
         Question _previous_question;
         List<Question> _potential_next_questions;
 		
-		Inquire _parent_inquiry;
+	Inquire _parent_inquiry;
 
         List<Answer> _answers;
         Answer _selected_answer;
