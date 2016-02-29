@@ -9,8 +9,11 @@ namespace InquiryProject
     public partial class Question
     {
         bool _is_active;
+		
         Question _previous_question;
         List<Question> _potential_next_questions;
+		
+		Inquire _parent_inquiry;
 
         List<Answer> _answers;
         Answer _selected_answer;
@@ -32,6 +35,14 @@ namespace InquiryProject
                 return _is_active;
             }
         }
+		
+		public Inquire inquiry
+		{
+			get
+			{
+				return _parent_inquiry
+			}
+		}
 
         public Question previous_question
         {

@@ -14,9 +14,9 @@ namespace InquiryProject
         int _sort_order;
         string _answer_type;
 
-        public Question()
+        public Question(Inquire _inquiry)
         {
-
+			_parent_inquiry = _inquiry;
         }
 
         public int id
