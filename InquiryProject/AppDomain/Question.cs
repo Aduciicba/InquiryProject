@@ -36,13 +36,13 @@ namespace InquiryProject
             }
         }
 		
-		public Inquire inquiry
+	public Inquire inquiry
+	{
+		get
 		{
-			get
-			{
-				return _parent_inquiry
-			}
+			return _parent_inquiry
 		}
+	}
 
         public Question previous_question
         {
