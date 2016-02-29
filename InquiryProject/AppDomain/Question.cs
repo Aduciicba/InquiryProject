@@ -8,14 +8,12 @@ namespace InquiryProject
 {
     public partial class Question
     {
-        bool _is_active;
-        Question _previous_question;
-        List<Question> _potential_next_questions;
-
-        List<Answer> _answers;
-        Answer _selected_answer;
-
-        Rule _active_rule;
+        bool _is_active;                           //показывать/не показывать 
+        Question _previous_question;               //предыдущий вопрос 
+        List<Question> _potential_next_questions;  //список возможных следующих вопросов
+        List<Answer> _answers;                     //список ответов на вопрос
+        Answer _selected_answer;                   //выбранный ответ
+        Rule _active_rule = null;                  //правило, определяющее показывать/не показывать 
 
         public bool Active
         {
@@ -30,6 +28,18 @@ namespace InquiryProject
                     _is_active = _active_rule.Evaluate();
                 }
                 return _is_active;
+            }
+        }
+
+        public Rule active_rule
+        {
+            get
+            {
+                return _active_rule;
+            }
+            set
+            {
+                _active_rule = value;
             }
         }
 
@@ -57,12 +67,17 @@ namespace InquiryProject
         {
             get
             {
+                //получаем список возможных следующих вопросов, т.е. тех, у которых выполнились правила
                 List<Question> que_list = _potential_next_questions.Where(q => q.Active).ToList();
+                //если в списке нет или 1 запись, то возвращаем нул или единственную запись
                 if (que_list.Count < 2)
                     return que_list.FirstOrDefault();
+                //если в списке более 1 кандидата, то берем первого и запоминаем
                 Question next = que_list.First();
+                //удалаяем его из списка потенциальных кандидатов
                 que_list.Remove(next);
-
+                //всех оставшихся потенциальных кандидатов добавляем в список потенциальных следующих вопросов для того вопроса, 
+                // который сейчас вернем как следующий
                 foreach (var qu in que_list)
                 {
                     next.addPotentialNextQuestion(qu);
@@ -94,27 +109,6 @@ namespace InquiryProject
                 _selected_answer = value;
             }
         }
-
-/*        public void setInactive()
-        {
-            _is_active = false;
-            if (previous_question.next_question == this)
-            {
-                previous_question.next_question = next_question;
-                next_question = null;
-            }
-        }
-
-        public void setActive()
-        {
-            _is_active = true;
-            if (previous_question.next_question != this)
-            {
-                next_question = previous_question.next_question;
-                previous_question.next_question = this;
-            }
-        }
-        */
 
     }
 }

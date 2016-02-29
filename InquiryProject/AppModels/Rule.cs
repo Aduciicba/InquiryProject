@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace InquiryProject
 {
+    //Правило
     public partial class Rule
     {
-        int _id;
-        string _logical_operation;
+        int _id;                    //ИД
+        string _logical_operation;  //Тип логической операции между операндами парвила: "and" или "or"
+        int _fid_inquiry;           //Ссылка на анкету
 
         public Rule()
         {
@@ -39,6 +41,16 @@ namespace InquiryProject
             }
         }
 
-
+        public int fid_inquiry
+        {
+            get
+            {
+                return _fid_inquiry;
+            }
+            set
+            {
+                _fid_inquiry = value;
+            }
+        }
     }
 }

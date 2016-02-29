@@ -72,10 +72,6 @@
       <HintPath>..\packages\System.Data.SQLite.Core.1.0.99.0\lib\net451\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Data.SQLite.EF6, Version=1.0.99.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.99.0\lib\net451\System.Data.SQLite.EF6.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Data.SQLite.Linq, Version=1.0.99.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.99.0\lib\net451\System.Data.SQLite.Linq.dll</HintPath>
       <Private>True</Private>
@@ -108,9 +104,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppDomain\BaseOperand.cs" />
-    <Compile Include="AppDomain\Inquire.cs" />
+    <Compile Include="AppDomain\Inquiry.cs" />
     <Compile Include="AppDomain\Rule.cs" />
-    <Compile Include="AppModels\Inquire.cs" />
+    <Compile Include="AppModels\Inquiry.cs" />
     <Compile Include="AppModels\Rule.cs" />
     <Compile Include="AppModels\RuleOperand.cs" />
     <Page Include="MainWindow.xaml">
@@ -124,7 +120,7 @@
     <Compile Include="AppDomain\Answer.cs" />
     <Compile Include="AppDomain\Question.cs" />
     <Compile Include="AppModels\Answer.cs" />
-    <Compile Include="AppModels\InquireBehavior.cs" />
+    <Compile Include="AppModels\InquiryBehavior.cs" />
     <Compile Include="AppModels\Question.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

@@ -26,8 +26,7 @@ namespace InquiryProject
                 {
                     try
                     {
-                        _db = Database.OpenFile("F:\qu.sqlite3");
-                        return true;
+                        _db = Database.OpenFile(@"F:\qu.sqlite");
                     }
                     catch (Exception ex)
                     {
@@ -35,7 +34,6 @@ namespace InquiryProject
                                        , "Ошибка"
                                        , MessageBoxButton.OK
                                        , MessageBoxImage.Error);
-                        return false;
                     }
                 }
                 return _db;

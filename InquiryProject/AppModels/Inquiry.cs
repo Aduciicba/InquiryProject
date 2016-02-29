@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace InquiryProject
 {
-    public partial class Inquire
+    //Анкета
+    public partial class Inquiry
     {
-        int _id;
-        string _name;
+        int _id;       //ИЖ
+        string _name;  //Название анкеты
 
-        public Inquire()
+        public Inquiry()
         {
 
         }

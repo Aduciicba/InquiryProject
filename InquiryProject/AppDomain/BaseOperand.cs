@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace InquiryProject
 {
+    //Базовый класс операнда
     public abstract class BaseOperand
     {
         bool _result;

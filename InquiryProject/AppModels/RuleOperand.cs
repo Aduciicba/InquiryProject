@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace InquiryProject
 {
+    //Операнд правила
     public partial class RuleOperand
     {
-        int _id;
-        int _fid_rule;
-        int _fid_operand;
-        string _operand_type;
+        int _id;               //ИД 
+        int _fid_rule;         //Ссылка на правило, к которому относятся операнды
+        int _fid_operand;      //Ссылка на операнд, в зависимости от типа на вопрос или правило
+        string _operand_type;  //Тип операнда: "answer" - ответ, "rule" - правило
 
         public RuleOperand()
         {
