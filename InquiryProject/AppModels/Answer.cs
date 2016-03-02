@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 
 namespace InquiryProject
 {
+    //Ответ
     public partial class Answer
     {
-        int _id;
-        string _var_text;
-        int _fid_question;
+        int _id;            //ИД
+        string _var_text;   //текст ответа 
+        int _fid_question;  //Ссылка на вопрос
 
-        public Answer(Question qu)
+        public Answer()
         {
-            _parent_question = qu;
+            
         }
 
         public int id

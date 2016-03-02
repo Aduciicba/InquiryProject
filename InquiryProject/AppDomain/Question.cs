@@ -8,17 +8,11 @@ namespace InquiryProject
 {
     public partial class Question
     {
-        bool _is_active;
-		
-        Question _previous_question;
-        List<Question> _potential_next_questions;
-		
-	Inquire _parent_inquiry;
-
-        List<Answer> _answers;
-        Answer _selected_answer;
-
-        Rule _active_rule;
+        bool _is_active;                           //показывать/не показывать 
+        Question _previous_question;               //предыдущий вопрос 
+        List<Question> _potential_next_questions;  //список возможных следующих вопросов
+        List<Answer> _answers;                     //список ответов на вопрос
+        Rule _active_rule = null;                  //правило, определяющее показывать/не показывать 
 
         public bool Active
         {
@@ -35,14 +29,18 @@ namespace InquiryProject
                 return _is_active;
             }
         }
-		
-	public Inquire inquiry
-	{
-		get
-		{
-			return _parent_inquiry
-		}
-	}
+
+        public Rule active_rule
+        {
+            get
+            {
+                return _active_rule;
+            }
+            set
+            {
+                _active_rule = value;
+            }
+        }
 
         public Question previous_question
         {
@@ -58,25 +56,38 @@ namespace InquiryProject
 
         public void addPotentialNextQuestion(Question qu)
         {
-            if (_potential_next_questions == null)
-                _potential_next_questions = new List<Question>();
+            potential_next_questions.Insert(0, qu);
+        }
 
-            _potential_next_questions.Insert(0, qu);
+        List<Question> potential_next_questions
+        {
+            get
+            {
+                if (_potential_next_questions == null)
+                    _potential_next_questions = new List<Question>();
+                return _potential_next_questions;
+            }
         }
 
         public Question next_question
         {
             get
             {
-                List<Question> que_list = _potential_next_questions.Where(q => q.Active).ToList();
+                //получаем список возможных следующих вопросов, т.е. тех, у которых выполнились правила
+                List<Question> que_list = potential_next_questions.Where(q => q.Active).ToList();
+                //если в списке нет или 1 запись, то возвращаем нул или единственную запись
                 if (que_list.Count < 2)
                     return que_list.FirstOrDefault();
+                //если в списке более 1 кандидата, то берем первого и запоминаем
                 Question next = que_list.First();
+                //удалаяем его из списка потенциальных кандидатов
                 que_list.Remove(next);
-
+                //всех оставшихся потенциальных кандидатов добавляем в список потенциальных следующих вопросов для того вопроса, 
+                // который сейчас вернем как следующий
                 foreach (var qu in que_list)
                 {
-                    next.addPotentialNextQuestion(qu);
+                    if (next.potential_next_questions.Count(q => q.id == qu.id) == 0)
+                        next.addPotentialNextQuestion(qu);
                 }
                 return next;
             }
@@ -93,39 +104,6 @@ namespace InquiryProject
                 _answers = value;
             }
         }
-
-        public Answer selected_answer
-        {
-            get
-            {
-                return _selected_answer;
-            }
-            set
-            {
-                _selected_answer = value;
-            }
-        }
-
-/*        public void setInactive()
-        {
-            _is_active = false;
-            if (previous_question.next_question == this)
-            {
-                previous_question.next_question = next_question;
-                next_question = null;
-            }
-        }
-
-        public void setActive()
-        {
-            _is_active = true;
-            if (previous_question.next_question != this)
-            {
-                next_question = previous_question.next_question;
-                previous_question.next_question = this;
-            }
-        }
-        */
 
     }
 }

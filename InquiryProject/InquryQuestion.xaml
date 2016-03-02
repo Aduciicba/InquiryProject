@@ -1,0 +1,48 @@
+﻿<Window x:Class="InquiryProject.InquryQuestion"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InquiryProject"
+        mc:Ignorable="d"
+        Title="Прохождение анкеты" Height="513.068" Width="448.295" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ControlTemplate x:Key="SingleTemplate">
+            <RadioButton Content="{Binding var_text}" Margin="10, 2" GroupName="group1" IsChecked="{Binding Selected, Mode=TwoWay}"/>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="MultipleTemplate">
+            <CheckBox Content="{Binding var_text}"  Margin="10, 2" IsChecked="{Binding Selected, Mode=TwoWay}" />
+        </ControlTemplate>
+    </Window.Resources>
+    <Grid Name="mainGrid" DataContext="{Binding}">
+        <Grid.Resources>
+            <Style x:Key="AnswerListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
+                <Setter Property="Template"
+                        Value="{StaticResource SingleTemplate}" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding parent_question.answer_type}"
+                                 Value="multiple">
+                        <Setter Property="Template"
+                                Value="{StaticResource MultipleTemplate}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding parent_question.answer_type}"
+                                 Value="single">
+                        <Setter Property="Template"
+                                Value="{DynamicResource SingleTemplate}" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <TextBox Grid.Row="0" Name="tbQuestion" Text="{Binding que_text}" ScrollViewer.CanContentScroll="True" IsReadOnly="True" TextWrapping="Wrap" Focusable="False" Margin="10, 10"/>
+        <ListBox Grid.Row="1" Name="lbAnswers" ItemsSource="{Binding answers}" Margin="10" ItemContainerStyle="{StaticResource AnswerListBoxItemStyle}"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" FlowDirection="RightToLeft">
+            <Button Name="btnNext" Content="Следующий вопрос" Width="120" Margin="10, 0, 10, 10" Click="btnNext_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

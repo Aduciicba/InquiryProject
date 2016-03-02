@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace InquiryProject
 {
+    //Вопрос
     public partial class Question
     {
-        int _id;
-        string _que_text;
-        int _fid_inquiry;
-        int _sort_order;
-        string _answer_type;
+        int _id;              //ИД
+        string _que_text;     //Текст вопроса 
+        int _fid_inquiry;     //Ссфлка на анкету
+        string _answer_type;  //Тип ответов в вопросе, "single" - можно выбрать 1 вариант, "multiple" - несколько
 
         public Question(Inquire _inquiry)
         {
@@ -52,18 +52,6 @@ namespace InquiryProject
             set
             {
                 _fid_inquiry = value;
-            }
-        }
-
-        public int sort_order
-        {
-            get
-            {
-                return _sort_order;
-            }
-            set
-            {
-                _sort_order = value;
             }
         }
 
