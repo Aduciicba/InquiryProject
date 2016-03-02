@@ -39,7 +39,8 @@ namespace InquiryProject
         private void btnStartInquiry_Click(object sender, RoutedEventArgs e)
         {
             _mainInq = Inquiry.LoadById(1);
-            MessageBox.Show(_mainInq.name);
+            InquryQuestion form = new InquryQuestion(_mainInq);
+            form.ShowDialog();
         }
     }
 }

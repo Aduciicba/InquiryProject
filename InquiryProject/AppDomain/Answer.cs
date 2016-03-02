@@ -59,22 +59,20 @@ namespace InquiryProject
             {
                 return _is_selected;
             }
-        }
-
-        public void Unselect()
-        {
-            _is_selected = false;
-        }
-
-        public void Select()
-        {
-            _is_selected = true;
-            _parent_question.selected_answer = this;
+            set
+            {
+                _is_selected = value;
+            }
         }
 
         public override bool Evaluate()
         {
-            return Active;
+            return Selected;
+        }
+
+        public override string ToString()
+        {
+            return this.var_text;
         }
     }
 }

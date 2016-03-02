@@ -10,7 +10,7 @@ using Simple.OData.Client;
 
 namespace InquiryProject
 {
-    public partial class Inquiry:INotifyPropertyChanged
+    public partial class Inquiry
     {
         List<Question> _questions;   //список вопросов анкеты
         Question _current_question;  //текущий вопрос
@@ -103,8 +103,7 @@ namespace InquiryProject
         {
             get
             {
-                if (_current_question == null)
-                    _current_question = _questions.First(q => q.previous_question == null);
+                
                 return _current_question;
             }
         }
@@ -122,18 +121,13 @@ namespace InquiryProject
             }
         }
 
-        public void next()
+        public Question next()
         {
-            _current_question = _current_question.next_question;
-            OnPropertyChanged("current_question");
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+            if (_current_question == null)
+                _current_question = _questions.First(q => q.previous_question == null);
+            else
+                _current_question = _current_question.next_question;
+            return _current_question;
         }
 
     }

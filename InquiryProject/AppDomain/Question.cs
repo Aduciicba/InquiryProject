@@ -12,7 +12,6 @@ namespace InquiryProject
         Question _previous_question;               //предыдущий вопрос 
         List<Question> _potential_next_questions;  //список возможных следующих вопросов
         List<Answer> _answers;                     //список ответов на вопрос
-        Answer _selected_answer;                   //выбранный ответ
         Rule _active_rule = null;                  //правило, определяющее показывать/не показывать 
 
         public bool Active
@@ -57,10 +56,17 @@ namespace InquiryProject
 
         public void addPotentialNextQuestion(Question qu)
         {
-            if (_potential_next_questions == null)
-                _potential_next_questions = new List<Question>();
+            potential_next_questions.Insert(0, qu);
+        }
 
-            _potential_next_questions.Insert(0, qu);
+        List<Question> potential_next_questions
+        {
+            get
+            {
+                if (_potential_next_questions == null)
+                    _potential_next_questions = new List<Question>();
+                return _potential_next_questions;
+            }
         }
 
         public Question next_question
@@ -68,7 +74,7 @@ namespace InquiryProject
             get
             {
                 //получаем список возможных следующих вопросов, т.е. тех, у которых выполнились правила
-                List<Question> que_list = _potential_next_questions.Where(q => q.Active).ToList();
+                List<Question> que_list = potential_next_questions.Where(q => q.Active).ToList();
                 //если в списке нет или 1 запись, то возвращаем нул или единственную запись
                 if (que_list.Count < 2)
                     return que_list.FirstOrDefault();
@@ -80,7 +86,8 @@ namespace InquiryProject
                 // который сейчас вернем как следующий
                 foreach (var qu in que_list)
                 {
-                    next.addPotentialNextQuestion(qu);
+                    if (next.potential_next_questions.Count(q => q.id == qu.id) == 0)
+                        next.addPotentialNextQuestion(qu);
                 }
                 return next;
             }
@@ -95,18 +102,6 @@ namespace InquiryProject
             set
             {
                 _answers = value;
-            }
-        }
-
-        public Answer selected_answer
-        {
-            get
-            {
-                return _selected_answer;
-            }
-            set
-            {
-                _selected_answer = value;
             }
         }
 

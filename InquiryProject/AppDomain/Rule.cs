@@ -43,5 +43,10 @@ namespace InquiryProject
             return _result ?? false;
         }
 
+        /*protected override string GetClass()
+        {
+            return this.GetType().ToString().Replace("InquiryProject.", "");
+        }*/
+
     }
 }
